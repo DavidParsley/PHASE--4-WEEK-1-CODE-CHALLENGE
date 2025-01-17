@@ -11,3 +11,4 @@ db.init_app(app)
 from views import *
 
 app.register_blueprint(user_bp)
+app.register_blueprint(loan_bp)
