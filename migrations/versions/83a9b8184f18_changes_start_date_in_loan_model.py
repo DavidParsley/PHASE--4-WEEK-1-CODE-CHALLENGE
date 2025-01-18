@@ -1,8 +1,8 @@
-"""Initial migration.
+"""changes start_date in loan model
 
-Revision ID: faefd43d4d37
+Revision ID: 83a9b8184f18
 Revises: 
-Create Date: 2025-01-18 01:27:32.009936
+Create Date: 2025-01-18 02:57:32.652159
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'faefd43d4d37'
+revision = '83a9b8184f18'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,8 +29,8 @@ def upgrade():
     op.create_table('loan',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('amount', sa.Integer(), nullable=False),
-    sa.Column('interest_rate', sa.Numeric(precision=10, scale=2), nullable=False),
-    sa.Column('start_date', sa.Date(), nullable=False),
+    sa.Column('interest', sa.Numeric(precision=10, scale=2), nullable=False),
+    sa.Column('start_date', sa.String(length=20), nullable=False),
     sa.Column('loan_status', sa.String(length=20), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),

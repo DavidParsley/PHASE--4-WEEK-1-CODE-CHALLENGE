@@ -18,8 +18,8 @@ class User(db.Model):
 class Loan(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     amount = db.Column(db.Integer, nullable=False)
-    interest_rate = db.Column(db.Numeric(10, 2), nullable=False)
-    start_date = db.Column(db.Date, nullable=False)  
+    interest = db.Column(db.Numeric(10, 2), nullable=False)
+    start_date = db.Column(db.String(20), nullable=False)  
     loan_status = db.Column(db.String(20), default='Active', nullable=False) 
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)

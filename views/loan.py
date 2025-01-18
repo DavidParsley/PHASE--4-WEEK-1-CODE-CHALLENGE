@@ -10,7 +10,7 @@ def add_loan():
 
     amount = data['amount']
     interest = data['interest']
-    start_data = data['start_data']
+    start_date = data['start_date']
     loan_status = data['loan_status']
     user_id = data['user_id']
 
@@ -20,7 +20,7 @@ def add_loan():
         return jsonify({"error":"User doesn't exists"}),406
     
     else:
-        new_loan = Loan(amount=amount, interest=interest, start_data=start_data, loan_status=loan_status, user_id=user_id)
+        new_loan = Loan(amount=amount, interest=interest, start_date=start_date, loan_status=loan_status, user_id=user_id)
         
         db.session.add(new_loan)
         db.session.commit()
