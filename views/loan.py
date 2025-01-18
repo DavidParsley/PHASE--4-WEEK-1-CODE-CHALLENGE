@@ -1,5 +1,7 @@
 from flask import jsonify, request, Blueprint
 from models import Loan, User, db
+from flask_jwt_extended import  jwt_required, get_jwt_identity
+
 
 loan_bp = Blueprint("loan_bp", __name__)
 
@@ -26,10 +28,12 @@ def add_loan():
         db.session.commit()
         return jsonify({"success":"Loan added successfully"}), 201
 
-# FETCH ALL LOANS
+# FETCH ALL LOANS RELATED TO THE CURRENT USER LOGED IN
 @loan_bp.route("/loans", methods=["GET"])
+@jwt_required()
 def fetch_loans():
-    loans = Loan.query.all()
+    current_user_id = get_jwt_identity()
+    loans = Loan.query.filter_by(user_id=current_user_id)
     loan_list = []
 
     for loan in loans:
@@ -44,10 +48,12 @@ def fetch_loans():
 
     return jsonify(loan_list)
 
-# FETCH A SINGLE LOAN
+# FETCH A SINGLE LOAN RELATED TO THE CURRENT USER LOGED IN
 @loan_bp.route("/loan/<int:loan_id>", methods=["GET"])
+@jwt_required()
 def fetch_loan(loan_id):
-    loan = Loan.query.get(loan_id)
+    current_user_id = get_jwt_identity()
+    loan = Loan.query.filter_by(id=loan_id, user_id=current_user_id).first()
 
     if loan:
         loan_data = {
@@ -87,9 +93,9 @@ def update_loan(loan_id):
         loan.user_id = user_id
 
         db.session.commit()
-        return jsonify({"success": "Updated successfully"}), 200
+        return jsonify({"success": "Loan Updated successfully"}), 200
     
-    return jsonify({"error": "Todo doesn't exist!"}), 406
+    return jsonify({"error": "Loan doesn't exist!"}), 406
 
 # DELETE A LOAN
 @loan_bp.route("/loan/<int:loan_id>", methods=["DELETE"])
@@ -99,7 +105,7 @@ def delete_todos(loan_id):
     if loan:
         db.session.delete(loan)
         db.session.commit()
-        return jsonify({"success":"Deleted successfully"}), 200
+        return jsonify({"success":"Loan Deleted successfully"}), 200
 
     else:
         return jsonify({"error":"Loan your are trying to delete doesn't exist!"}),406
