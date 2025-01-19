@@ -16,8 +16,8 @@ with app.app_context():
     users.append(User(first_name = "Anne", last_name = "Muriuki", email = "anne@gmail.com", password = "goat2"))
     users.append(User(first_name = "Hamza", last_name = "Ali", email = "hamza@gmail.com", password = "goat3"))
     users.append(User(first_name = "Sherlyne", last_name = "Ochieng", email = "sherlyne@gmail.com", password = "goat4"))
-    users.append(User(first_name = "Abdimalik", last_name = "Omar", email = "abdimalik.omar@gmail.com", password = "goat5"))
-    users.append(User(first_name = "Abdimalik", last_name = "Abdullahi", email = "abdimalik.abdullahi@gmail.com", password = "goat6"))
+    users.append(User(first_name = "Abdimalik", last_name = "Omar", email = "omar@gmail.com", password = "goat5"))
+    users.append(User(first_name = "Abdimalik", last_name = "Abdullahi", email = "abdimalik@gmail.com", password = "goat6"))
     
 
     
