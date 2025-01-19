@@ -1,26 +1,32 @@
 from app import app
 from models import db, User, Loan
+from werkzeug.security import generate_password_hash
+from flask import request
+
+
 
 with app.app_context():
 
-    # Delete all rows in the "pets" table
+    # Delete all rows in the Loan and User tables
     Loan.query.delete()
     User.query.delete()
 
     # Create an empty list
     users = []
     loans = []
-    
 
-    users.append(User(first_name = "David", last_name = "Parsley", email = "david@gmail.com", password = "goat1"))
-    users.append(User(first_name = "Anne", last_name = "Muriuki", email = "anne@gmail.com", password = "goat2"))
-    users.append(User(first_name = "Hamza", last_name = "Ali", email = "hamza@gmail.com", password = "goat3"))
-    users.append(User(first_name = "Sherlyne", last_name = "Ochieng", email = "sherlyne@gmail.com", password = "goat4"))
-    users.append(User(first_name = "Abdimalik", last_name = "Omar", email = "omar@gmail.com", password = "goat5"))
-    users.append(User(first_name = "Abdimalik", last_name = "Abdullahi", email = "abdimalik@gmail.com", password = "goat6"))
+    # data = request.get_json()
+    password = "goat"
     
-
+    # Users seeds
+    users.append(User(first_name = "David", last_name = "Parsley", email = "david@gmail.com", password=generate_password_hash(password)))
+    users.append(User(first_name = "Anne", last_name = "Muriuki", email = "anne@gmail.com", password=generate_password_hash(password)))
+    users.append(User(first_name = "Hamza", last_name = "Ali", email = "hamza@gmail.com", password=generate_password_hash(password)))
+    users.append(User(first_name = "Sherlyne", last_name = "Ochieng", email = "sherlyne@gmail.com", password=generate_password_hash(password)))
+    users.append(User(first_name = "Abdimalik", last_name = "Omar", email = "omar@gmail.com", password=generate_password_hash(password)))
+    users.append(User(first_name = "Abdimalik", last_name = "Abdullahi", email = "abdimalik@gmail.com", password=generate_password_hash(password)))
     
+    # Loans seeds
     loans.append(Loan(amount = 5000000, interest = 1.2, start_date = "01-20-2025", loan_status = "Active", user_id = 1))
     loans.append(Loan(amount = 6000000, interest = 1.5, start_date = "01-21-2025", loan_status = "Active", user_id = 2))
     loans.append(Loan(amount = 7500000, interest = 1.3, start_date = "01-22-2025", loan_status = "Paid-Off", user_id = 3))
@@ -39,7 +45,7 @@ with app.app_context():
     loans.append(Loan(amount = 9200000, interest = 1.4, start_date = "02-05-2025", loan_status = "Paid-Off", user_id = 1))
     
 
-    # Insert each Pet in the list into the database table
+    # Insert each Loan and User in the list into the database tables
     db.session.add_all(users)
     db.session.add_all(loans)
 
