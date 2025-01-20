@@ -12,7 +12,7 @@ class User(db.Model):
     email = db.Column(db.String(128), nullable=False)
     password = db.Column(db.String(128), nullable=False)
 
-    loans = db.relationship('Loan', backref='user', lazy=True)
+    loans = db.relationship('Loan', backref='user', lazy=True) #cascade="all, delete-orphan" <-- DO MORE RESEARCH ON THIS !
 
 
 class Loan(db.Model):
