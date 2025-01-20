@@ -19,12 +19,12 @@ with app.app_context():
     password = "goat"
     
     # Users seeds
-    users.append(User(first_name = "David", last_name = "Parsley", email = "david@gmail.com", password=generate_password_hash(password)))
-    users.append(User(first_name = "Anne", last_name = "Muriuki", email = "anne@gmail.com", password=generate_password_hash(password)))
-    users.append(User(first_name = "Hamza", last_name = "Ali", email = "hamza@gmail.com", password=generate_password_hash(password)))
-    users.append(User(first_name = "Sherlyne", last_name = "Ochieng", email = "sherlyne@gmail.com", password=generate_password_hash(password)))
-    users.append(User(first_name = "Abdimalik", last_name = "Omar", email = "omar@gmail.com", password=generate_password_hash(password)))
-    users.append(User(first_name = "Abdimalik", last_name = "Abdullahi", email = "abdimalik@gmail.com", password=generate_password_hash(password)))
+    users.append(User(first_name = "David", last_name = "Parsley", email = "davidparsley.kakhayanga@gmail.com", password=generate_password_hash(password)))
+    users.append(User(first_name = "Anne", last_name = "Muriuki", email = "muriukianne50@gmail.com", password=generate_password_hash(password)))
+    users.append(User(first_name = "Hamza", last_name = "Ali", email = "hamza.ali@student.moringaschool.com", password=generate_password_hash(password)))
+    users.append(User(first_name = "Sherlyne", last_name = "Ochieng", email = "sherlyne.ochieng@student.moringaschool.com", password=generate_password_hash(password)))
+    users.append(User(first_name = "Abdimalik", last_name = "Omar", email = "abdimalik.omar1@student.moringaschool.com", password=generate_password_hash(password)))
+    users.append(User(first_name = "Abdimalik", last_name = "Abdullahi", email = "abdimalik.abdullahi@student.moringaschool.com", password=generate_password_hash(password)))
     
     # Loans seeds
     loans.append(Loan(amount = 5000000, interest = 1.2, start_date = "01-20-2025", loan_status = "Active", user_id = 1))

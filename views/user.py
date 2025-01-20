@@ -1,12 +1,16 @@
 from flask import jsonify, request, Blueprint
 from models import User, db
 from werkzeug.security import generate_password_hash
+from flask_mail import Mail, Message
+from datetime import datetime
+from app import mail
+
 
 user_bp = Blueprint("user_bp", __name__)
 
-# ADD A USER
+# REGISTERED A USER
 @user_bp.route("/user", methods=["POST"])
-def add_user():
+def register_user():
     data = request.get_json()
     first_name = data ["first_name"]
     last_name = data ["last_name"]
@@ -23,7 +27,25 @@ def add_user():
         db.session.add(new_user)
         db.session.commit()
 
-        return jsonify({"Success": " User Added Successfully"}), 200
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        msg = Message('Loan Payment Reminder', sender = 'david.kakhayanga@student.moringaschool.com', recipients = [email])
+        msg.body = f"""
+        Hello,
+
+        This is a friendly reminder that your loan payment is due. Please ensure that your payment is made by the due date to avoid any late fees.
+
+        If you have any questions or need assistance, feel free to contact us.
+
+        Thank you for your prompt attention to this matter.
+
+        Best regards,
+        Your Loan Provider
+
+        Sent at: {current_time}
+        """
+        mail.send(msg)
+
+        return jsonify({"Success": " User Registerd Successfully"}), 200
 
 # UPDATE A USER INFORMATION
 # @user_bp.route("/user/update/<int:user_id>", methods=["PATCH"])

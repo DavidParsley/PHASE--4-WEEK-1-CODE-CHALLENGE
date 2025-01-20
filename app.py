@@ -3,9 +3,20 @@ from flask_migrate import Migrate
 from models import  db, TokenBlocklist
 from flask_jwt_extended import JWTManager
 from datetime import timedelta
+from flask_mail import Mail, Message
+
 
 
 app = Flask(__name__)
+
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'david.kakhayanga@student.moringaschool.com'
+app.config['MAIL_PASSWORD'] = 'fmtq qpff mgyl gbnn'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
+mail = Mail(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bank.db'
 migrate = Migrate(app, db)
