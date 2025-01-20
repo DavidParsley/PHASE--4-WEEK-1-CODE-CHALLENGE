@@ -11,7 +11,8 @@ class User(db.Model):
     last_name = db.Column(db.String(128), nullable=False)
     email = db.Column(db.String(128), nullable=False)
     password = db.Column(db.String(128), nullable=False)
-
+    is_admin = db.Column(db.Boolean, default=False)
+    
     loans = db.relationship('Loan', backref='user', lazy=True) #cascade="all, delete-orphan" <-- DO MORE RESEARCH ON THIS !
 
 

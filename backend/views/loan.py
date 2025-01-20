@@ -71,31 +71,37 @@ def fetch_loan(loan_id):
 
 # UPDATE A LOAN
 @loan_bp.route("/loan/<int:loan_id>", methods=["PATCH"])
+@jwt_required()
 def update_loan(loan_id):
-    loan = Loan.query.get(loan_id)
+    current_user_id = get_jwt_identity()
+    loan = Loan.query.get(loan_id)  
 
     if loan:
+        current_user = User.query.get(current_user_id)
+        if not current_user or not current_user.is_admin:
+            return jsonify({"error": "Unauthorized: User is not an admin"}), 403
+
         data = request.get_json()
         amount = data.get('amount', loan.amount)
         interest = data.get('interest', loan.interest)
-        start_data = data.get('start_data', loan.start_date)
+        start_date = data.get('start_date', loan.start_date)  
         loan_status = data.get('loan_status', loan.loan_status)
         user_id = data.get('user_id', loan.user_id)
 
         check_user_id = User.query.get(user_id)
-        if  not check_user_id:
-            return jsonify({"error": "User doesn't exist"}), 406
+        if not check_user_id:
+            return jsonify({"error": "User doesn't exist"}), 404  
         
         loan.amount = amount
         loan.interest = interest
-        loan.start_date = start_data
+        loan.start_date = start_date
         loan.loan_status = loan_status
         loan.user_id = user_id
 
         db.session.commit()
-        return jsonify({"success": "Loan Updated successfully"}), 200
-    
-    return jsonify({"error": "Loan doesn't exist!"}), 406
+        return jsonify({"success": "Loan updated successfully"}), 200
+
+    return jsonify({"error": "Loan doesn't exist!"}), 404  
 
 # DELETE A LOAN
 @loan_bp.route("/loan/<int:loan_id>", methods=["DELETE"])
