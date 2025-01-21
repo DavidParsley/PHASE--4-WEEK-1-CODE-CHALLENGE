@@ -7,7 +7,7 @@ export default function Layout() {
   return (
     <div >
       <Navbar />
-      <div >
+      <div className="min-h-[90vh] bg-gray-200 container mx-auto p-8" >
         <Outlet />
       </div>
       <Footer />
